@@ -128,7 +128,7 @@
         places.push({index: equalSumIndices[0], place: assignedPlace});
         
       } else {
-        // apply 11 rule
+        // apply rule 11
         let equalSumIndicesAllDancesScores = equalSumIndices.map(index => allDancesScores[index]);
         let allDancesPlaces = calc_skating_dance(equalSumIndicesAllDancesScores, placeToCheck + assignedPlace);
   
@@ -170,13 +170,11 @@
     // init
     let res = Array(placeCount).fill(0);
   
-    // calculation table iteration
-    let currentPlace = 1;
-    
     const sumReducer = (accumulator, currentValue) => accumulator + currentValue;
     let placeSums = scores.map( (row, index) => ({index: index, sum: row.reduce(sumReducer)}));
     placeSums.sort((e1, e2) => (e1.sum - e2.sum));
   
+    let currentPlace = 1;
     while(placeSums.length > 0) {
       let equalRangeSize = 1;
       for (let i = equalRangeSize; i < placeSums.length; ++i) {
@@ -190,7 +188,6 @@
         res[pairPlace.index] = currentPlace + pairPlace.place;
       }
       currentPlace += equalSumIndices.length;
-  
     }
     return res;
   }
